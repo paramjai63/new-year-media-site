@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Download, Share2, ArrowLeft } from "lucide-react";
 import wallpapers from "../data/wallpapers";
-import WallpaperSection from "../components/WallpaperSection";
+import WallpaperSection from "../components/Home";
 
 function WallpaperDetail() {
   const { id } = useParams();
@@ -28,19 +28,19 @@ function WallpaperDetail() {
   }
 
   const handleShare = () => {
-  const shareUrl = window.location.href;
+    const shareUrl = window.location.href;
 
-  if (navigator.share) {
-    navigator.share({
-      title: "New Year Wallpaper",
-      text: "Check out this wallpaper",
-      url: shareUrl,
-    });
-  } else {
-    navigator.clipboard.writeText(shareUrl);
-    alert("Link copied to clipboard");
-  }
-};
+    if (navigator.share) {
+      navigator.share({
+        title: "New Year Wallpaper",
+        text: "Check out this wallpaper",
+        url: shareUrl,
+      });
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      alert("Link copied to clipboard");
+    }
+  };
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
       {/* Back */}
@@ -80,7 +80,10 @@ function WallpaperDetail() {
               Download
             </button>
 
-            <button className="flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-lg" onClick={handleShare}>
+            <button
+              className="flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-lg"
+              onClick={handleShare}
+            >
               <Share2 className="w-4 h-4" />
               Share
             </button>
@@ -89,7 +92,6 @@ function WallpaperDetail() {
       </div>
       {/* Other Wallpapers */}
       <WallpaperSection title="More wallpapers" excludeId={wallpaper.id} />
-    
     </div>
   );
 }
