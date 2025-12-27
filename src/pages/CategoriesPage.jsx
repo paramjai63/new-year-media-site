@@ -1,18 +1,34 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { ArrowLeft } from "lucide-react";
 import wallpapers from "../data/wallpapers";
 import WallpaperCard from "../components/WallpaperCard";
-import { ArrowLeft } from "lucide-react";
 
 function CategoryPage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { categoryId } = useParams();
 
   const categoryWallpapers = wallpapers.filter(
     (w) => w.category === categoryId
   );
 
+  const readableCategory =
+    categoryId.charAt(0).toUpperCase() + categoryId.slice(1);
+
   return (
     <section className="px-4 py-6">
+      <Helmet>
+        <title>{readableCategory} Wallpapers – Premium Mobile Wallpapers</title>
+        <meta
+          name="description"
+          content={`Download premium ${readableCategory.toLowerCase()} wallpapers for mobile. High quality HD and AMOLED wallpapers, free to use.`}
+        />
+        <link
+          rel="canonical"
+          href={`https://premium-wallpapers.vercel.app/category/${categoryId}`}
+        />
+      </Helmet>
+
       <button
         onClick={() => navigate("/")}
         className="flex items-center gap-2 text-slate-400 mb-4 hover:text-white transition"
@@ -21,8 +37,8 @@ function CategoryPage() {
         <span>Home</span>
       </button>
 
-      <h1 className="text-xl font-semibold text-white mb-6 capitalize">
-        {categoryId} Wallpapers
+      <h1 className="text-xl font-semibold text-white mb-6">
+        {readableCategory} Wallpapers
       </h1>
 
       {categoryWallpapers.length === 0 ? (
